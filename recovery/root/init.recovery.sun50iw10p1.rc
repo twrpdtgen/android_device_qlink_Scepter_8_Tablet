@@ -1,0 +1,15 @@
+on early-init
+    setprop sys.usb.configfs 1
+    setprop sys.usb.controller "5100000.udc-controller"
+    insmod /init-input.ko
+    insmod /gslX680new.ko
+
+on property:ro.debuggable=1
+    start console
+
+service console /system/bin/sh
+    console
+    user root
+    group root shell log readproc
+    seclabel u:r:shell:s0
+    setenv HOSTNAME console
